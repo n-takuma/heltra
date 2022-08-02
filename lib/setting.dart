@@ -2,8 +2,20 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:heltra/main.dart';
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
 
 class Setting extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -25,7 +37,7 @@ class Setting extends StatelessWidget {
                       ),
                     ),
                 ),
-                Padding(padding: EdgeInsets.only(right: 400)),
+                Padding(padding: EdgeInsets.only(right: 450)),
                 RaisedButton (
                   child: Text(
                     'ログアウト',
@@ -44,11 +56,11 @@ class Setting extends StatelessWidget {
             child: Row(
               children: [
                 Container(
-                  padding: EdgeInsets.only(left: 30),
+                  padding: EdgeInsets.only(left: 100),
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.only(top: 60),
+                        padding: EdgeInsets.only(top: 100),
                         child: Text(
                           textAlign: TextAlign.left,
                           '目標',
@@ -88,7 +100,7 @@ class Setting extends StatelessWidget {
 
                 ),
                 Container(
-                  padding: EdgeInsets.only(left: 150, top: 200),
+                  padding: EdgeInsets.only(left: 180, top: 200),
                   child: Column(
                     children: [
                       RaisedButton (
@@ -96,6 +108,13 @@ class Setting extends StatelessWidget {
                         child: Text('基本データ編集'),
                         onPressed: () {
                           //基本データ編集を押したときの処理
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute (
+                              builder: (context) => BasicData(),
+                              fullscreenDialog: true,
+                            ),
+                          );
                         },
                       ),
                       Padding(padding: EdgeInsets.only(bottom: 20)),
@@ -104,6 +123,13 @@ class Setting extends StatelessWidget {
                         child: Text('種目を追加・編集'),
                         onPressed: () {
                           // 種目を追加・編集を押したときの処理
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute (
+                              builder: (context) => AddEvent(),
+                              fullscreenDialog: true,
+                            ),
+                          );
                         },
                       )
                     ]
@@ -113,6 +139,40 @@ class Setting extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+}
+
+class BasicData extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('基本データ入力')),
+      body: Center(
+        child: RaisedButton(
+          child: Text('Back to MyPage 1'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class AddEvent extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('種目を追加・編集')),
+      body: Center(
+        child: RaisedButton(
+          child: Text('Back to MyPage 1'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
     );
   }
