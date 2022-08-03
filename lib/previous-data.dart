@@ -1,223 +1,82 @@
-
+// （1） 必要なパッケージのimport宣言
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-Widget PreviousData(BuildContext context) {
-  const data = [
-    "item0",
-    "item1",
-    "item2",
-    "item3",
-    "item4",
-  ];
-  const example = [
-    "brother0",
-    "brother1",
-    "brother2",
-    "brother3",
-    "brother4",
-  ];
-  final Size size = MediaQuery.of(context).size;
-  return Column(
-    children: [
-    Container(
-      width: size.width,
-      padding: EdgeInsets.only(top: 100),
-      // alignment: Alignment.centerRight,
-      // 画面幅を取って、カラムの画面幅を常にその画面幅にする
-
-      // ドロップダウンはループのマップ
-
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        // padding:EdgeInsets.only(top: 100),
-        children: [
-        Container(
-          // padding: EdgeInsets.only(top: 100),
-          child: Text(
-            '達成度',
-            style: TextStyle(fontSize: 50),
-          ),
-        ),
-        Container(
-          child: Column(children: [
-            Container(
-              child: Text(
-                '今日の消費カロリー',
-                style: TextStyle(fontSize: 35),
-              ),
-            ),
-            Container(
-              child: Text(
-                '600Kcal',
-                style: TextStyle(fontSize: 50),
-              ),
-            )
-          ]),
-        )
-      ]),
-    ),
-      Container(
-        width: size.width,
-        padding: EdgeInsets.only(top: 100),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            DropdownButton(
-              items: [
-                for(final item in data)
-                DropdownMenuItem(
-                  child: Text(item),
-                  value: item,
-                  ),
-              ],
-              hint: Text('現在の日付'),
-              onChanged: (Object? value) {
-                print(value);
-              },
-            ),
-            DropdownButton(
-              items: [
-                for(final item in example)
-                DropdownMenuItem(
-                  child: Text(item),
-                  value: item,
-                  ),
-              ],
-              hint: Text('種目を選択'),
-              onChanged: (Object? value) {
-                
-              },
-            ),
-          // Container(
-          //   padding: EdgeInsets.only(right: 50),
-          //   child: Text(
-          //     '現在の日付',
-          //     style: TextStyle(fontSize: 20),
-          //   ),
-          // ),
-          // Text(
-          //   '種目を選択',
-          //   style: TextStyle(fontSize: 20),
-          // ),
-          Container(
-            child: Text(
-              // textfieldでtextarea的なことができる
-
-              '～分',
-              style: TextStyle(fontSize: 50),
-            ),
-          ),
-        ]),
-      ),
-      Container(
-        width: size.width,
-        padding: EdgeInsets.only(top: 100),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-          Container(
-            margin: EdgeInsets.only(right: 30),
-            padding: EdgeInsets.symmetric(horizontal: 40),
-            color: Colors.red,
-            child: Text(
-              '登録',
-              style: TextStyle(fontSize: 30),
-            ),
-          )
-        ]),
-      ),
-  ]);
+class PreviousData extends StatefulWidget {
+  @override
+  _PreviousDataState createState() => _PreviousDataState();
 }
+class _PreviousDataState extends State<PreviousData> {
 
+  // （1） 入力された日付変数
+  DateTime _startDate = DateTime.now();
+  DateTime _endDate = DateTime.now();
+  // : （省略）
 
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child:Text(
+                  "${_startDate.year}年${_startDate.month}月${_startDate.day}日~${_endDate.year}年${_endDate.month}月${_endDate.day}日",
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),
+                )
+              ),
+              OutlinedButton(
+                  // （2） ボタンを押した時に入力できるようにする
+                  onPressed: () => _openSample4(context),
+                  child: Text(
+                    "日付選択",
+                    style: TextStyle(
+                    fontSize: 20,
+                  ),
+                  )
+              ),
+              // : （省略）
+            ]
+          ),
+        )
+      ],
+      // color: Colors.white,
+      // alignment: Alignment.center,
+      // child: Row(
+      //   mainAxisAlignment: MainAxisAlignment.center,
+      //   children: [
+      //     Center(child:Text("${_startDate.year}年${_startDate.month}月${_startDate.day}日~${_endDate.year}年${_endDate.month}月${_endDate.day}日")),
+      //     OutlinedButton(
+      //         // （2） ボタンを押した時に入力できるようにする
+      //         onPressed: () => _openSample4(context),
+      //         child: Text("日付選択")
+      //     ),
+      //     // : （省略）
+      //   ]
+      // ) 
+    );
+  }
 
-// class TopPage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Column(children: [
-//         ConstrainedBox(
-//           constraints: BoxConstraints(
-//             maxWidth: 1000,
-//           ),
-//           child: Container(
-//             padding: EdgeInsets.only(top: 100, left: 100, right: 100),
-//             // alignment: Alignment.centerRight,
-//             child: Row(
-//               children: [
-//               Container(
-//                 padding: EdgeInsets.only(right: 300),
-//                 child: Text(
-//                   '達成度',
-//                   style: TextStyle(fontSize: 50),
-//                 ),
-//               ),
-//               Container(
-//                 child: Column(
-//                   children:[
-//                     Container(  
-//                 child: Text(
-//                   '今日の消費カロリー',
-//                   style: TextStyle(fontSize: 35),
-//                 ),
-//               ),
-//               Container(
-//                 child: Text(
-//                   '600Kcal',style: TextStyle(fontSize: 50),
-//                 ),
-//               )
-//                 ]
-//                 ),
-//               )
-//             ]),
-//           ),
-//         ),
-//         ConstrainedBox(
-//           constraints: BoxConstraints(
-//             maxWidth: 1000,
-//           ),
-//           child: Container(
-//             padding: EdgeInsets.symmetric(horizontal: 100, vertical: 100),
-//             child: Row(children: [
-//               Container(
-//                 padding: EdgeInsets.only(right: 50),
-//                 child: Text(
-//                   '現在の日付',
-//                   style: TextStyle(fontSize: 20),
-//                 ),
-//               ),
-//               Container(
-//                 padding: EdgeInsets.only(right: 250),
-//                 child: Text(
-//                   '種目を選択',
-//                   style: TextStyle(fontSize: 20),
-//                 ),
-//               ),
-//               Container(
-//                 child: Text(
-//                   '～分',
-//                   style: TextStyle(fontSize: 50),
-//                 ),
-//               )
-//             ]),
-//           ),
-//         ),
-//         ConstrainedBox(
-//           constraints: BoxConstraints(
-//             maxWidth: 1000,
-//           ),
-//           child: Container(
-//             child: Row(children: [
-//               Container(
-//                 margin: EdgeInsets.only(left: 800),
-//                 padding: EdgeInsets.symmetric(horizontal: 40),
-//                 color: Colors.red,
-//                 child: Text('登録',style: TextStyle(fontSize: 30),),
-//               )
-//             ]),
-//           ),
-//         ),
-//       ]),
-//     );
-//   }
-// }
+  Future<void> _openSample4(BuildContext context) async {
+    //  （2） showDateRangePickerを使う
+    final DateTimeRange? _range = await showDateRangePicker(
+        context: context,
+        // （3） 初期の日付期間を指定する
+        initialDateRange: DateTimeRange(start: _startDate, end: _endDate),
+        firstDate: DateTime(2022,1,1),
+        lastDate: DateTime(2022,12,31),
+    );
+    if(_range != null){
+        setState(() {
+            // （4） 期間の開始と終了の設定
+            _startDate = _range.start;
+            _endDate = _range.end;
+        });
+    }
+  }
+
+}
