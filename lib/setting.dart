@@ -8,144 +8,146 @@ Widget Setting(BuildContext context) {
   // TODO: implement build
   return Scaffold(
     resizeToAvoidBottomInset: false,
-    body: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Container(
-          width: size.width,
-          padding: EdgeInsets.only(top: 100),
-          child: Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                padding: EdgeInsets.only(right: 500),
-                child: Text(
-                  'ASDF',
-                  style: TextStyle(
-                    fontSize: 40
+    body: SingleChildScrollView(
+      child:Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            width: size.width,
+            padding: EdgeInsets.only(top: 100),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              // mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  // padding: EdgeInsets.only(right: 500),
+                  child: Text(
+                    'ASDF',
+                    style: TextStyle(
+                      fontSize: 40
+                      ),
+                    ),
+                ),
+                // Padding(padding: EdgeInsets.only(right: 450)),
+                RaisedButton (
+                  child: Text(
+                    'ログアウト',
+                    style: TextStyle(
+                      fontSize: 20 
                     ),
                   ),
-              ),
-              // Padding(padding: EdgeInsets.only(right: 450)),
-              RaisedButton (
-                child: Text(
-                  'ログアウト',
-                  style: TextStyle(
-                    fontSize: 20 
-                  ),
+                  onPressed: () {
+                    // ログアウトを押したときの処理
+                  },
                 ),
-                onPressed: () {
-                  // ログアウトを押したときの処理
-                },
-              ),
-              Padding(padding: EdgeInsets.only(right: 30))
-            ],
+                // Padding(padding: EdgeInsets.only(right: 30))
+              ],
+            ),
           ),
-        ),
-        Container(
-          width: size.width,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Container(
-                // padding: EdgeInsets.only(left: 100),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.only(top: 50,right: 400),
-                      child: Text(
-                        // textAlign: TextAlign.left,
-                        '目標',
-                        style: TextStyle(
-                          fontSize: 20,
+          Container(
+            width: size.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  // padding: EdgeInsets.only(left: 100),
+                  child: Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: 50,right: 400),
+                        child: Text(
+                          // textAlign: TextAlign.left,
+                          '目標',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left:100,top: 50,bottom: 50,right: 100),
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.blue),
-                      ),
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(right: 100),
-                            child: Text(
-                              '消費カロリー',
-                              style: TextStyle(
-                                fontSize: 20,
+                      Container(
+                        padding: EdgeInsets.only(left:100,top: 50,bottom: 50,right: 100),
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.blue),
+                        ),
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(right: 100),
+                              child: Text(
+                                '消費カロリー',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                ),
                               ),
                             ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 20, bottom: 30),
-                            width: 300,
-                            child: TextField(
-                              textAlign: TextAlign.end,
-                              style: TextStyle(
-                                fontSize: 20, 
+                            Container(
+                              padding: EdgeInsets.only(left: 20, bottom: 30),
+                              width: 300,
+                              child: TextField(
+                                textAlign: TextAlign.end,
+                                style: TextStyle(
+                                  fontSize: 20, 
+                                ),
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                ),
+                                // 消費カロリー入力
                               ),
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                              ),
-                              // 消費カロリー入力
                             ),
-                          ),
-                          RaisedButton(
-                            child: Text('送信'),
-                            onPressed: () {
-                              // 送信の処理
-                            },
-                          ),
-                        ]
-                      ),
-                    )
-                  ],
-                ),
+                            RaisedButton(
+                              child: Text('送信'),
+                              onPressed: () {
+                                // 送信の処理
+                              },
+                            ),
+                          ]
+                        ),
+                      )
+                    ],
+                  ),
 
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 10, top: 200),
-                child: Column(
-                  children: [
-                    RaisedButton (
-                      padding: EdgeInsets.all(20),
-                      child: Text('基本データ編集'),
-                      onPressed: () {
-                        //基本データ編集を押したときの処理
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute (
-                            builder: (context) => BasicData(),
-                            fullscreenDialog: true,
-                          ),
-                        );
-                      },
-                    ),
-                    Padding(padding: EdgeInsets.only(bottom: 20)),
-                    RaisedButton (
-                      padding: EdgeInsets.all(20),
-                      child: Text('種目を追加・編集'),
-                      onPressed: () {
-                        // 種目を追加・編集を押したときの処理
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute (
-                            builder: (context) => TodoListPage(),
-                            fullscreenDialog: true,
-                          ),
-                        );
-                      },
-                    )
-                  ]
                 ),
-              ),
-            ],
-          ),
-        )
-      ],
-    ),
+                Container(
+                  padding: EdgeInsets.only(left: 20, top: 200),
+                  child: Column(
+                    children: [
+                      RaisedButton (
+                        padding: EdgeInsets.all(20),
+                        child: Text('基本データ編集'),
+                        onPressed: () {
+                          //基本データ編集を押したときの処理
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute (
+                              builder: (context) => BasicData(),
+                              fullscreenDialog: true,
+                            ),
+                          );
+                        },
+                      ),
+                      Padding(padding: EdgeInsets.only(bottom: 20)),
+                      RaisedButton (
+                        padding: EdgeInsets.all(20),
+                        child: Text('種目を追加・編集'),
+                        onPressed: () {
+                          // 種目を追加・編集を押したときの処理
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute (
+                              builder: (context) => TodoListPage(),
+                              fullscreenDialog: true,
+                            ),
+                          );
+                        },
+                      )
+                    ]
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    )
   );
 }
 
