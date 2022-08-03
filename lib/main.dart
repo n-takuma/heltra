@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(fontFamily: 'Noto Sans JP'),
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -32,13 +33,11 @@ class MyApp extends StatelessWidget {
           ),
           body: TabBarView(
             children: <Widget>[
+              Dropdown(),
+              PreviousData(),
               Builder(builder: (BuildContext context) {
-                return TopPage(context);
+                return Setting(context);
               }),
-              Builder(builder: (BuildContext context) {
-                return PreviousData(context);
-              }),
-              Setting()
             ],
           ),
         ),

@@ -21,9 +21,9 @@ Widget Setting(BuildContext context) {
               Container(
                 padding: EdgeInsets.only(right: 500),
                 child: Text(
-                  'ユーザー名',
+                  'ASDF',
                   style: TextStyle(
-                    fontSize: 20
+                    fontSize: 40
                     ),
                   ),
               ),
@@ -155,7 +155,7 @@ class BasicData extends StatefulWidget {
 }
 class _BasicDataState extends State<BasicData> {
   List<String> user_item = ['ID','名前','誕生日','性別','身長','体重','パスワード'];
-  List<String> user = ['Pi','ASDF','2002-1-2','1','100','50','**********'];
+  List<String> user = ['Pi','ASDF','2002-1-2','男','100','50','**********'];
 
   @override
   Widget build(BuildContext context) {
