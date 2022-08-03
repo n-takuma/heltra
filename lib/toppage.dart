@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'glaphSample.dart';
+// import 'glaphSample.dart';
 
 
 class Dropdown extends StatefulWidget {
@@ -13,6 +13,8 @@ class _DropdownState extends State<Dropdown> {
   final controller = TextEditingController();
   var conting = 0;
   @override
+  DateTime _startDate = DateTime.now();
+  
   Widget build(BuildContext context) {
     const data = [
       "item0",
@@ -28,6 +30,8 @@ class _DropdownState extends State<Dropdown> {
       "brother3",
       "brother4",
     ];
+    DateTime _Date = DateTime.now();
+
     final Size size = MediaQuery.of(context).size;
     return Column(children: [
       Container(
@@ -74,23 +78,49 @@ class _DropdownState extends State<Dropdown> {
           // Container(
           //   child: Row(
           //     children[
-          DropdownButton(
-            items: [
-              for (final item in data)
-                DropdownMenuItem(
-                  child: Text(item),
-                  value: item,
-                ),
-            ],
-            hint: Text('現在の日付'),
-            // 指定していないをisEmptyで指定できるかも
-            value: _selectitem,
-            onChanged: (value) {
-              if (value == null) return;
-              setState(() {
-                _selectitem = value;
-              });
-            },
+          // DropdownButton(
+          //   items: [
+          //     for (final item in data)
+          //       DropdownMenuItem(
+          //         child: Text(item),
+          //         value: item,
+          //       ),
+          //   ],
+          //   hint: Text('現在の日付'),
+          //   // 指定していないをisEmptyで指定できるかも
+          //   value: _selectitem,
+          //   onChanged: (value) {
+          //     if (value == null) return;
+          //     setState(() {
+          //       _selectitem = value;
+          //     });
+          //   },
+          // ),
+          Container(
+            child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Center(
+                child:Text(
+                  "${_startDate.year}年${_startDate.month}月${_startDate.day}日",
+                  style: TextStyle(
+                    fontSize: 30,
+                  ),
+                )
+              ),
+              OutlinedButton(
+                  // （2） ボタンを押した時に入力できるようにする
+                  onPressed: () => _openSample1(context),
+                  child: Text(
+                    "日付選択",
+                    style: TextStyle(
+                    fontSize: 20,
+                  ),
+                  )
+              ),
+              // : （省略）
+            ]
+          ),
           ),
           //   ],
           //   )
@@ -128,6 +158,7 @@ class _DropdownState extends State<Dropdown> {
           Container(
             width: 150,
             child: TextFormField(
+              textAlign: TextAlign.end,
               style: TextStyle(fontSize: 50),
             ),
           ),
@@ -157,6 +188,24 @@ class _DropdownState extends State<Dropdown> {
         ]),
       ),
     ]);
+  }
+
+  Future<void> _openSample1(BuildContext context) async {
+    // （3） ダイアログを表示する
+    final DateTime? _date = await showDatePicker(
+        context: context,
+        // （4） 処理指定日付
+        initialDate: DateTime.now(),
+        // （5） 指定できる日付範囲
+        firstDate: DateTime(2022,1,1),
+        lastDate: DateTime(2022,12,31),
+    );
+    // （6） 選択された場合に、値を設定する
+    if(_date != null){
+      setState(() {
+        _startDate = _date;
+      });
+    }
   }
   // @override
   // void initState(){

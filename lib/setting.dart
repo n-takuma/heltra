@@ -226,10 +226,12 @@ class TodoListPage extends StatefulWidget {
 class _TodoListPageState extends State<TodoListPage> {
   // Todoリストのデータ
   List<String> todoList = ['腹筋','背筋'];
+  List<int> calorie = [20, 30];
 
   @override
   Widget build(BuildContext context) {
-    String input = "";
+    String input_todo = "";
+    int input_calorie = 0;
     return Scaffold(
       // AppBarを表示し、タイトルも設定
       appBar: AppBar(
@@ -252,12 +254,30 @@ class _TodoListPageState extends State<TodoListPage> {
             context: context,
             builder: (BuildContext context) => AlertDialog(
               title: Text('種目を追加'),
-              content: TextField(
-                onChanged: (value) {
-                  setState(() {
-                    input = value;
-                  });
-                },
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: '種目を入力してください',
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        input_todo = value;
+                      });
+                    },
+                  ),
+                  TextField(
+                    decoration: InputDecoration(
+                      hintText: '種目のカロリーを入力してください',
+                    ),
+                    onChanged: (value) {
+                      setState(() {
+                        input_calorie = int.parse(value);
+                      });
+                    },
+                  )
+                ],
               ),
               actions: [
                 TextButton(
@@ -269,7 +289,8 @@ class _TodoListPageState extends State<TodoListPage> {
                 TextButton(
                   onPressed: () {
                     setState(() {
-                      todoList.add(input);
+                      todoList.add(input_todo);
+                      calorie.add(input_calorie);
                     });
                     Navigator.pop(context);
                   },
