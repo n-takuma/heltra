@@ -49,89 +49,91 @@ class _LoginPageState extends State<LoginPage> {
       body: Center(
         child: Container(
           padding: EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              // 'ID','名前','誕生日','性別','身長','体重','パスワード'
-              // ID入力
-              TextFormField(
-                decoration: InputDecoration(labelText: 'ID'),
-                onChanged: (String value) {
-                  setState(() {
-                    id = value;
-                  });
-                },
-              ),
-              // パスワード入力
-              TextFormField(
-                decoration: InputDecoration(labelText: 'パスワード'),
-                obscureText: true,
-                onChanged: (String value) {
-                  setState(() {
-                    password = value;
-                  });
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: '名前'),
-                onChanged: (String value) {
-                  setState(() {
-                    name = value;
-                  });
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: '誕生日'),
-                onChanged: (String value) {
-                  setState(() {
-                    birthdate = value;
-                  });
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: '性別'),
-                onChanged: (String value) {
-                  setState(() {
-                    sex = int.parse(value);
-                  });
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: '身長'),
-                onChanged: (String value) {
-                  setState(() {
-                    height = int.parse(value);
-                  });
-                },
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: '体重'),
-                onChanged: (String value) {
-                  setState(() {
-                    weight = int.parse(value);
-                  });
-                },
-              ),
-              Container(
-                padding: EdgeInsets.all(8),
-                // メッセージ表示
-                child: Text(infoText),
-              ),
-              Container(
-                width: double.infinity,
-                // ユーザー登録ボタン
-                child: ElevatedButton(
-                  child: Text('ユーザー登録'),
-                  onPressed: () async {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Master(),
-                      )
-                    );
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                // 'ID','名前','誕生日','性別','身長','体重','パスワード'
+                // ID入力
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'ID'),
+                  onChanged: (String value) {
+                    setState(() {
+                      id = value;
+                    });
                   },
                 ),
-              )
-            ],
+                // パスワード入力
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'パスワード'),
+                  obscureText: true,
+                  onChanged: (String value) {
+                    setState(() {
+                      password = value;
+                    });
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(labelText: '名前'),
+                  onChanged: (String value) {
+                    setState(() {
+                      name = value;
+                    });
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(labelText: '誕生日'),
+                  onChanged: (String value) {
+                    setState(() {
+                      birthdate = value;
+                    });
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(labelText: '性別'),
+                  onChanged: (String value) {
+                    setState(() {
+                      sex = int.parse(value);
+                    });
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(labelText: '身長'),
+                  onChanged: (String value) {
+                    setState(() {
+                      height = int.parse(value);
+                    });
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(labelText: '体重'),
+                  onChanged: (String value) {
+                    setState(() {
+                      weight = int.parse(value);
+                    });
+                  },
+                ),
+                Container(
+                  padding: EdgeInsets.all(8),
+                  // メッセージ表示
+                  child: Text(infoText),
+                ),
+                Container(
+                  width: double.infinity,
+                  // ユーザー登録ボタン
+                  child: ElevatedButton(
+                    child: Text('ユーザー登録'),
+                    onPressed: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Master(),
+                        )
+                      );
+                    },
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
