@@ -2,27 +2,13 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:heltra/main.dart';
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
 class Setting extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(
-        title: Text('次'),
-      ),
+      resizeToAvoidBottomInset: false,
       body: Column(
         children: [
           Container(
