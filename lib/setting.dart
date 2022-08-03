@@ -232,6 +232,8 @@ class _TodoListPageState extends State<TodoListPage> {
   Widget build(BuildContext context) {
     String input_todo = "";
     int input_calorie = 0;
+    String change_todo = "";
+    int change_calorie = 0;
     return Scaffold(
       // AppBarを表示し、タイトルも設定
       appBar: AppBar(
@@ -243,7 +245,76 @@ class _TodoListPageState extends State<TodoListPage> {
         itemBuilder: (context, index) {
           return Card(
             child: ListTile(
-              title: Text(todoList[index]),
+              title: Text(todoList[index] + ' ： '+ calorie[index].toString()),
+              onTap: () {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text('種目を変更'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: '種目名を入力してください',
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              change_todo = value;
+                            });
+                          },
+                        ),
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: '種目のカロリーを入力してください',
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              change_calorie = int.parse(value);
+                            });
+                          },
+                        )
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            todoList.removeAt(index);
+                            calorie.removeAt(index);
+                          });
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          '削除',
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.red,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('キャンセル'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            todoList[index] = change_todo;
+                            calorie[index] = change_calorie;
+                          });
+                          Navigator.pop(context);
+                        },
+                        child: Text('OK'),
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           );
         },

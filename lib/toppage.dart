@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 // import 'glaphSample.dart';
 
@@ -9,48 +11,34 @@ class Dropdown extends StatefulWidget {
 
 class _DropdownState extends State<Dropdown> {
   Object _selectitem = 'item0';
-  Object _selectevent = 'brother0';
+  Object _selectevent = '背筋';
   final controller = TextEditingController();
   var conting = 0;
   @override
   DateTime _startDate = DateTime.now();
-  
+
+  List<String> example = [
+    "種目を追加",
+      "背筋",
+      "腹筋",
+    ];
+
   Widget build(BuildContext context) {
-    const data = [
-      "item0",
-      "item1",
-      "item2",
-      "item3",
-      "item4",
-    ];
-    const example = [
-      "brother0",
-      "brother1",
-      "brother2",
-      "brother3",
-      "brother4",
-    ];
     DateTime _Date = DateTime.now();
+    String input_todo = "";
+    int input_calorie = 0;
 
     final Size size = MediaQuery.of(context).size;
     return Column(children: [
       Container(
         width: size.width,
+        // height: size.height,
         padding: EdgeInsets.only(top: 100),
-        // alignment: Alignment.centerRight,
-        // 画面幅を取って、カラムの画面幅を常にその画面幅にする
 
-        // ドロップダウンはループのマップ
 
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            // padding:EdgeInsets.only(top: 100),
             children: [
               Container(
-              //   // padding: EdgeInsets.only(top: 100),
-              //   // child: Text('達成度'), 
-                // child:PieChartSample2(
-                  
-                // )
                 child: Text('達成度',style: TextStyle(fontSize: 50),),
               ),
               Container(
@@ -75,27 +63,6 @@ class _DropdownState extends State<Dropdown> {
         width: size.width,
         padding: EdgeInsets.only(top: 100),
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          // Container(
-          //   child: Row(
-          //     children[
-          // DropdownButton(
-          //   items: [
-          //     for (final item in data)
-          //       DropdownMenuItem(
-          //         child: Text(item),
-          //         value: item,
-          //       ),
-          //   ],
-          //   hint: Text('現在の日付'),
-          //   // 指定していないをisEmptyで指定できるかも
-          //   value: _selectitem,
-          //   onChanged: (value) {
-          //     if (value == null) return;
-          //     setState(() {
-          //       _selectitem = value;
-          //     });
-          //   },
-          // ),
           Container(
             child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -122,12 +89,10 @@ class _DropdownState extends State<Dropdown> {
             ]
           ),
           ),
-          //   ],
-          //   )
-          // ),
-          // ],
-          // )
-          DropdownButton(
+          SizedBox(
+            height: 80,
+            width: 150,
+            child:DropdownButton(
             items: [
               for (final item in example)
                 DropdownMenuItem(
@@ -142,30 +107,73 @@ class _DropdownState extends State<Dropdown> {
               setState(() {
                 _selectevent = value;
               });
+              if (value == "種目を追加") {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text('種目を追加'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: '種目を入力してください',
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              input_todo = value;
+                            });
+                          },
+                        ),
+                        TextField(
+                          decoration: InputDecoration(
+                            hintText: '種目のカロリーを入力してください',
+                          ),
+                          onChanged: (value) {
+                            setState(() {
+                              input_calorie = int.parse(value);
+                            });
+                          },
+                        )
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('キャンセル'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            example.add(input_todo);
+                            // calorie.add(input_calorie);
+                            // カロリーの追加
+                          });
+                          Navigator.pop(context);
+                        },
+                        child: Text('OK'),
+                      ),
+                    ],
+                  ),
+                );
+              }
             },
           ),
-          // Container(
-          //   padding: EdgeInsets.only(right: 50),
-          //   child: Text(
-          //     '現在の日付',
-          //     style: TextStyle(fontSize: 20),
-          //   ),
-          // ),
-          // Text(
-          //   '種目を選択',
-          //   style: TextStyle(fontSize: 20),
-          // ),
+
+          ),
           Container(
-            width: 150,
+            width: 100,
             child: TextFormField(
               textAlign: TextAlign.end,
-              style: TextStyle(fontSize: 50),
+              style: TextStyle(fontSize: 40),
             ),
           ),
           Container(
             child: Text(
               '分',
-              style: TextStyle(fontSize: 50),
+              style: TextStyle(fontSize: 40),
             ),
           )
         ]),
@@ -207,38 +215,4 @@ class _DropdownState extends State<Dropdown> {
       });
     }
   }
-  // @override
-  // void initState(){
-  //   //アプリ起動時に一度だけ実行される
-  //    showDialog(
-  //                 context: context,
-  //                 builder: (BuildContext context) => AlertDialog(
-  //                   title: Text(user_item[index] + 'を変更'),
-  //                   content: TextField(
-  //                     onChanged: (value) {
-  //                       setState(() {
-  //                         input = value;
-  //                       });
-  //                     },
-  //                   ),
-  //                   actions: [
-  //                     TextButton(
-  //                       onPressed: () {
-  //                         Navigator.pop(context);
-  //                       },
-  //                       child: Text('キャンセル'),
-  //                     ),
-  //                     TextButton(
-  //                       onPressed: () {
-  //                         setState(() {
-  //                           user[index] = input;
-  //                         });
-  //                         Navigator.pop(context);
-  //                       },
-  //                       child: Text('OK'),
-  //                     ),
-  //                   ],
-  //                 ),
-  //   ;
-  // }
 }
