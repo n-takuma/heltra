@@ -1,6 +1,5 @@
 // （1） 必要なパッケージのimport宣言
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 class PreviousData extends StatefulWidget {
   @override
@@ -44,20 +43,6 @@ class _PreviousDataState extends State<PreviousData> {
           ),
         )
       ],
-      // color: Colors.white,
-      // alignment: Alignment.center,
-      // child: Row(
-      //   mainAxisAlignment: MainAxisAlignment.center,
-      //   children: [
-      //     Center(child:Text("${_startDate.year}年${_startDate.month}月${_startDate.day}日~${_endDate.year}年${_endDate.month}月${_endDate.day}日")),
-      //     OutlinedButton(
-      //         // （2） ボタンを押した時に入力できるようにする
-      //         onPressed: () => _openSample4(context),
-      //         child: Text("日付選択")
-      //     ),
-      //     // : （省略）
-      //   ]
-      // ) 
     );
   }
 
@@ -68,7 +53,7 @@ class _PreviousDataState extends State<PreviousData> {
         // （3） 初期の日付期間を指定する
         initialDateRange: DateTimeRange(start: _startDate, end: _endDate),
         firstDate: DateTime(2022,1,1),
-        lastDate: DateTime(2022,12,31),
+        lastDate: DateTime.now(),
     );
     if(_range != null){
         setState(() {
