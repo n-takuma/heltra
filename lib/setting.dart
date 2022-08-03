@@ -2,147 +2,217 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
-class Setting extends StatelessWidget {
 
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 100,left: 500),
-            child: Row(
-              children: [
-                Container(
-                  child: Text(
-                    'ユーザー名',
-                    style: TextStyle(
-                      fontSize: 20
-                      ),
-                    ),
-                ),
-                Padding(padding: EdgeInsets.only(right: 450)),
-                RaisedButton (
-                  child: Text(
-                    'ログアウト',
-                    style: TextStyle(
-                      fontSize: 20 
+Widget Setting(BuildContext context) {
+  final Size size = MediaQuery.of(context).size;
+  // TODO: implement build
+  return Scaffold(
+    resizeToAvoidBottomInset: false,
+    body: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Container(
+          width: size.width,
+          padding: EdgeInsets.only(top: 100),
+          child: Row(
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                padding: EdgeInsets.only(right: 500),
+                child: Text(
+                  'ユーザー名',
+                  style: TextStyle(
+                    fontSize: 20
                     ),
                   ),
-                  onPressed: () {
-                    // ログアウトを押したときの処理
-                  },
-                )
-              ],
-            ),
+              ),
+              // Padding(padding: EdgeInsets.only(right: 450)),
+              RaisedButton (
+                child: Text(
+                  'ログアウト',
+                  style: TextStyle(
+                    fontSize: 20 
+                  ),
+                ),
+                onPressed: () {
+                  // ログアウトを押したときの処理
+                },
+              ),
+              Padding(padding: EdgeInsets.only(right: 30))
+            ],
           ),
-          Container(
-            child: Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.only(left: 100),
-                  child: Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(top: 100),
-                        child: Text(
-                          textAlign: TextAlign.left,
-                          '目標',
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
+        ),
+        Container(
+          width: size.width,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                // padding: EdgeInsets.only(left: 100),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(top: 50,right: 400),
+                      child: Text(
+                        // textAlign: TextAlign.left,
+                        '目標',
+                        style: TextStyle(
+                          fontSize: 20,
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.only(left:10,top: 20,bottom: 20, right: 400),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.blue),
-                        ),
-                        child: Column(
-                          children: [
-                            Container(
-                              child: Text('消費カロリー'),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(top: 30, left: 20, bottom: 100),
-                              width: 340,
-                              child: TextField(
-                                // 消費カロリー入力
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(left:100,top: 50,bottom: 50,right: 100),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.blue),
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(right: 100),
+                            child: Text(
+                              '消費カロリー',
+                              style: TextStyle(
+                                fontSize: 20,
                               ),
                             ),
-                            RaisedButton(
-                              child: Text('送信'),
-                              onPressed: () {
-                                // 送信の処理
-                              },
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(left: 20, bottom: 30),
+                            width: 300,
+                            child: TextField(
+                              textAlign: TextAlign.end,
+                              style: TextStyle(
+                                fontSize: 20, 
+                              ),
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                              ),
+                              // 消費カロリー入力
                             ),
-                          ]
-                        ),
-                      )
-                    ],
-                  ),
-
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 180, top: 200),
-                  child: Column(
-                    children: [
-                      RaisedButton (
-                        padding: EdgeInsets.all(20),
-                        child: Text('基本データ編集'),
-                        onPressed: () {
-                          //基本データ編集を押したときの処理
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute (
-                              builder: (context) => BasicData(),
-                              fullscreenDialog: true,
-                            ),
-                          );
-                        },
+                          ),
+                          RaisedButton(
+                            child: Text('送信'),
+                            onPressed: () {
+                              // 送信の処理
+                            },
+                          ),
+                        ]
                       ),
-                      Padding(padding: EdgeInsets.only(bottom: 20)),
-                      RaisedButton (
-                        padding: EdgeInsets.all(20),
-                        child: Text('種目を追加・編集'),
-                        onPressed: () {
-                          // 種目を追加・編集を押したときの処理
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute (
-                              builder: (context) => TodoListPage(),
-                              fullscreenDialog: true,
-                            ),
-                          );
-                        },
-                      )
-                    ]
-                  ),
+                    )
+                  ],
                 ),
-              ],
-            ),
-          )
-        ],
-      ),
-    );
-  }
+
+              ),
+              Container(
+                padding: EdgeInsets.only(left: 10, top: 200),
+                child: Column(
+                  children: [
+                    RaisedButton (
+                      padding: EdgeInsets.all(20),
+                      child: Text('基本データ編集'),
+                      onPressed: () {
+                        //基本データ編集を押したときの処理
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute (
+                            builder: (context) => BasicData(),
+                            fullscreenDialog: true,
+                          ),
+                        );
+                      },
+                    ),
+                    Padding(padding: EdgeInsets.only(bottom: 20)),
+                    RaisedButton (
+                      padding: EdgeInsets.all(20),
+                      child: Text('種目を追加・編集'),
+                      onPressed: () {
+                        // 種目を追加・編集を押したときの処理
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute (
+                            builder: (context) => TodoListPage(),
+                            fullscreenDialog: true,
+                          ),
+                        );
+                      },
+                    )
+                  ]
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    ),
+  );
 }
 
-class BasicData extends StatelessWidget {
+class BasicData extends StatefulWidget {
+  @override
+  _BasicDataState createState() => _BasicDataState();
+}
+class _BasicDataState extends State<BasicData> {
+  List<String> user_item = ['ID','名前','誕生日','性別','身長','体重','パスワード'];
+  List<String> user = ['Pi','ASDF','2002-1-2','1','100','50','**********'];
+
   @override
   Widget build(BuildContext context) {
-    const user = [
-      Text("Pi"), Text("ASDF"), Text("2002-1-2"), Text("1"), Text("100"), Text("Raspberry"),
-    ];
+    final Size size = MediaQuery.of(context).size;
+    String input = '';
+    // const user_item = [
+    //   Text("ID"), Text("名前"), Text("誕生日"), Text("性別"), Text("身長"), Text("体重"),
+    // ];
+    // const user = [
+    //   Text("Pi"), Text("ASDF"), Text("2002-1-2"), Text("1"), Text("100"), Text("Raspberry"),
+    // ];
     return Scaffold(
       appBar: AppBar(title: Text('基本データ入力')),
-      body: ListView(
-          children: [
-
-          ],
-        ),
+      body: Container(
+        width: double.infinity,
+        child: ListView.builder(
+          itemCount: user.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              leading: Text(user_item[index]),
+              title: Text(user[index]),
+              onTap: (){
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text(user_item[index] + 'を変更'),
+                    content: TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          input = value;
+                        });
+                      },
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('キャンセル'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          setState(() {
+                            user[index] = input;
+                          });
+                          Navigator.pop(context);
+                        },
+                        child: Text('OK'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          }
+       ),
+      ),
     );
   }
 }
@@ -159,6 +229,7 @@ class _TodoListPageState extends State<TodoListPage> {
 
   @override
   Widget build(BuildContext context) {
+    String input = "";
     return Scaffold(
       // AppBarを表示し、タイトルも設定
       appBar: AppBar(
@@ -177,94 +248,38 @@ class _TodoListPageState extends State<TodoListPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          // "push"で新規画面に遷移
-          // リスト追加画面から渡される値を受け取る
-          final newListText = await Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) {
-              // 遷移先の画面としてリスト追加画面を指定
-              return TodoAddPage();
-            }),
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text('種目を追加'),
+              content: TextField(
+                onChanged: (value) {
+                  setState(() {
+                    input = value;
+                  });
+                },
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('キャンセル'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      todoList.add(input);
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            ),
           );
-          if (newListText != null) {
-            // キャンセルした場合は newListText が null となるので注意
-            setState(() {
-              // リスト追加
-              todoList.add(newListText);
-            });
-          }
         },
         child: Icon(Icons.add),
-      ),
-    );
-  }
-}
-
-class TodoAddPage extends StatefulWidget {
-  @override
-  _TodoAddPageState createState() => _TodoAddPageState();
-}
-
-class _TodoAddPageState extends State<TodoAddPage> {
-  // 入力されたテキストをデータとして持つ
-  String _text = '';
-
-  // データを元に表示するWidget
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('リスト追加'),
-      ),
-      body: Container(
-        // 余白を付ける
-        padding: EdgeInsets.all(64),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // 入力されたテキストを表示
-            Text(_text, style: TextStyle(color: Colors.blue)),
-            const SizedBox(height: 8),
-            // テキスト入力
-            TextField(
-              // 入力されたテキストの値を受け取る（valueが入力されたテキスト）
-              onChanged: (String value) {
-                // データが変更したことを知らせる（画面を更新する）
-                setState(() {
-                  // データを変更
-                  _text = value;
-                });
-              },
-            ),
-            const SizedBox(height: 8),
-            Container(
-              // 横幅いっぱいに広げる
-              width: double.infinity,
-              // リスト追加ボタン
-              child: ElevatedButton(
-                onPressed: () {
-                  // "pop"で前の画面に戻る
-                  // "pop"の引数から前の画面にデータを渡す
-                  Navigator.of(context).pop(_text);
-                },
-                child: Text('リスト追加', style: TextStyle(color: Colors.white)),
-              ),
-            ),
-            const SizedBox(height: 8),
-            Container(
-              // 横幅いっぱいに広げる
-              width: double.infinity,
-              // キャンセルボタン
-              child: TextButton(
-                // ボタンをクリックした時の処理
-                onPressed: () {
-                  // "pop"で前の画面に戻る
-                  Navigator.of(context).pop();
-                },
-                child: Text('キャンセル'),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }
