@@ -211,7 +211,7 @@ class _DropdownState extends State<Dropdown> {
         initialDate: DateTime.now(),
         // （5） 指定できる日付範囲
         firstDate: DateTime(2022,1,1),
-        lastDate: DateTime(2022,12,31),
+        lastDate: DateTime.now(),
     );
     // （6） 選択された場合に、値を設定する
     if(_date != null){
