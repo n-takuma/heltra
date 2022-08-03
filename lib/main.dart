@@ -174,29 +174,36 @@ class _MyHomePageState extends State<MyHomePage> {
 
 Widget _title(BuildContext context) {
   const data = [
-    Text("item0"),
-    Text("item1"),
-    Text("item2"),
-    Text("item3"),
-    Text("item4"),
+    "item0",
+    "item1",
+    "item2",
+    "item3",
+    "item4",
+  ];
+  const example = [
+    "brother0",
+    "brother1",
+    "brother2",
+    "brother3",
+    "brother4",
   ];
   final Size size = MediaQuery.of(context).size;
-  return Column(children: [
-    Text(size.width.toString()),
+  return Column(
+    children: [
     Container(
       width: size.width,
-      // padding: EdgeInsets.only(top: 100, left: 100, right: 100),
+      padding: EdgeInsets.only(top: 100),
       // alignment: Alignment.centerRight,
       // 画面幅を取って、カラムの画面幅を常にその画面幅にする
-      // 比率指定をする
 
-      // ループのマップ
+      // ドロップダウンはループのマップ
 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        // padding:EdgeInsets.only(top: 100),
         children: [
         Container(
-          // padding: EdgeInsets.only(right: 300),
+          // padding: EdgeInsets.only(top: 100),
           child: Text(
             '達成度',
             style: TextStyle(fontSize: 50),
@@ -220,27 +227,49 @@ Widget _title(BuildContext context) {
         )
       ]),
     ),
-    ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: 1000,
-      ),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 100, vertical: 100),
-        child: Row(children: [
-          Container(
-            padding: EdgeInsets.only(right: 50),
-            child: Text(
-              '現在の日付',
-              style: TextStyle(fontSize: 20),
+      Container(
+        width: size.width,
+        padding: EdgeInsets.only(top: 100),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            DropdownButton(
+              items: [
+                for(final item in data)
+                DropdownMenuItem(
+                  child: Text(item),
+                  value: item,
+                  ),
+              ],
+              hint: Text('現在の日付'),
+              onChanged: (Object? value) {
+                print(value);
+              },
             ),
-          ),
-          Container(
-            padding: EdgeInsets.only(right: 250),
-            child: Text(
-              '種目を選択',
-              style: TextStyle(fontSize: 20),
+            DropdownButton(
+              items: [
+                for(final item in example)
+                DropdownMenuItem(
+                  child: Text(item),
+                  value: item,
+                  ),
+              ],
+              hint: Text('種目を選択'),
+              onChanged: (Object? value) {
+                
+              },
             ),
-          ),
+          // Container(
+          //   padding: EdgeInsets.only(right: 50),
+          //   child: Text(
+          //     '現在の日付',
+          //     style: TextStyle(fontSize: 20),
+          //   ),
+          // ),
+          // Text(
+          //   '種目を選択',
+          //   style: TextStyle(fontSize: 20),
+          // ),
           Container(
             child: Text(
               // textfieldでtextarea的なことができる
@@ -251,15 +280,14 @@ Widget _title(BuildContext context) {
           ),
         ]),
       ),
-    ),
-    ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: 1000,
-      ),
-      child: Container(
-        child: Row(children: [
+      Container(
+        width: size.width,
+        padding: EdgeInsets.only(top: 100),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
           Container(
-            margin: EdgeInsets.only(left: 800),
+            margin: EdgeInsets.only(right: 30),
             padding: EdgeInsets.symmetric(horizontal: 40),
             color: Colors.red,
             child: Text(
@@ -269,6 +297,5 @@ Widget _title(BuildContext context) {
           )
         ]),
       ),
-    ),
   ]);
 }
