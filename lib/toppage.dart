@@ -1,26 +1,60 @@
+import 'dart:convert';
 import 'dart:html';
 import 'glaphSample.dart';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
 // import 'glaphSample.dart';
 
 class Dropdown extends StatefulWidget {
+
   @override
   State<Dropdown> createState() => _DropdownState();
 }
 
 class _DropdownState extends State<Dropdown> {
-  Object _selectevent = '背筋';
+  Object _selectevent = '種目を追加';
   final controller = TextEditingController();
   var conting = 0;
   @override
   DateTime _startDate = DateTime.now();
 
+  @override
+  void initState() {
+    super.initState();
+
+    _request();
+  }
+
+  List _jsonList = [];
   List<String> example = [
     "種目を追加",
-    "背筋",
-    "腹筋",
   ];
+
+  Future<void> _request() async {
+    // GETを投げる
+    var resp = await http.get(Uri.http(
+        '163.44.255.164:3000',
+        '/api/training/',
+        ));
+    if (resp.statusCode != 200) {
+      setState(() {
+        int statusCode = resp.statusCode;
+        // _content = "Failed to get $statusCode";
+      });
+      return;
+    }
+    setState(() {
+      var jsonResponse = jsonDecode(resp.body);
+      _jsonList = jsonResponse['Details'];
+      for(var i = 0; i < _jsonList.length; i++ ) {
+        example.add(_jsonList[i]["Name"]);
+        // training_calorie.add(_jsonList[i]["ConsumptingC"]);
+      }
+      // title = _jsonList[0]["Name"];
+    });
+  }
 
   Widget build(BuildContext context) {
     DateTime _Date = DateTime.now();
@@ -36,32 +70,35 @@ class _DropdownState extends State<Dropdown> {
         padding: EdgeInsets.only(top: 100),
 
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Column(
-            children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 15),
-                child: Text(
-                  '達成度',
-                  style: TextStyle(fontSize: 30),
+          Expanded(
+            child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: 15),
+                  child: Text(
+                    '達成度',
+                    style: TextStyle(fontSize: 30),
+                  ),
                 ),
-              ),
-              Container(
-                width: 200,
-                height: 200,
-                //   // padding: EdgeInsets.only(top: 100),
-                //   // child: Text('達成度'),
-                child: PieChartSample2(),
-              ),
-              Container(
-                padding: EdgeInsets.only(top: 10),
-                child: const Text(
-                  '5000/10000 Kcal',
-                  style: TextStyle(fontSize: 30),
+                Container(
+                  width: 200,
+                  height: 200,
+                  //   // padding: EdgeInsets.only(top: 100),
+                  //   // child: Text('達成度'),
+                  child: PieChartSample2(),
                 ),
-              )
-            ],
+                Container(
+                  padding: EdgeInsets.only(top: 10),
+                  child: const Text(
+                    '5000/10000 Kcal',
+                    style: TextStyle(fontSize: 30),
+                  ),
+                )
+              ],
+            ),
           ),
-          Container(
+          Expanded(
+          child: Container(
             child: Column(children: [
               Container(
                 child: Text(
@@ -77,12 +114,15 @@ class _DropdownState extends State<Dropdown> {
               )
             ]),
           )
+          )
         ]),
       ),
       Container(
-        width: size.width,
+        // width: size.width,
         padding: EdgeInsets.only(top: 100),
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly, 
+          children: [
           Container(
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
               Center(
@@ -178,16 +218,22 @@ class _DropdownState extends State<Dropdown> {
             ),
           ),
           Container(
-            width: 100,
-            child: TextFormField(
-              textAlign: TextAlign.end,
-              style: TextStyle(fontSize: 40),
-            ),
-          ),
-          Container(
-            child: Text(
-              '分',
-              style: TextStyle(fontSize: 40),
+            child: Row(
+              children: [
+                Container(
+                  width: 100,
+                  child: TextFormField(
+                    textAlign: TextAlign.end,
+                    style: TextStyle(fontSize: 40),
+                  ),
+                ),
+                Container(
+                  child: Text(
+                    '分',
+                    style: TextStyle(fontSize: 40),
+                  ),
+                )
+              ],
             ),
           )
         ]),

@@ -30,13 +30,15 @@ class _PreviousDataState extends State<PreviousData> {
     return Column(children: [
       Container(
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Center(
+          Expanded(
+            child: Center(
               child: Text(
             "${_startDate.year}年${_startDate.month}月${_startDate.day}日~${_endDate.year}年${_endDate.month}月${_endDate.day}日",
             style: TextStyle(
               fontSize: 30,
             ),
           )),
+          ),
           OutlinedButton(
               // （2） ボタンを押した時に入力できるようにする
               onPressed: () => _openSample4(context),
@@ -47,6 +49,7 @@ class _PreviousDataState extends State<PreviousData> {
                 ),
               )),
           // : （省略）
+
         ]),
       ),
       Column(
