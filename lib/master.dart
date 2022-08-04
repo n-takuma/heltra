@@ -18,6 +18,7 @@ class Master extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, 
       theme: ThemeData(fontFamily: 'Noto Sans JP'),
       home: DefaultTabController(
         length: 3,
