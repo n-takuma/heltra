@@ -8,6 +8,9 @@ class PieChartSample2 extends StatefulWidget {
 
 class PieChart2State extends State {
   int touchedIndex = -1;
+  List<String> achirvement = ['達成','未達成'];
+  List<double> percents = [50.0,50.0];
+  List<Color?> colors = [Colors.blue, Colors.grey[350]];
 
   @override
   Widget build(BuildContext context) {
@@ -34,91 +37,47 @@ class PieChart2State extends State {
           ),
           sectionsSpace: 0,
           centerSpaceRadius: 60,
-          sections: showingSections()),
+          sections: _buildChild()),
     );
-
-    // グラフの一つのインジケーターについて
-    //           Column(
-    //             mainAxisSize: MainAxisSize.min,
-    //             mainAxisAlignment: MainAxisAlignment.start,
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: const <Widget>[
-    //               Indicator(
-    //                 color: Color(0xff0293ee),
-    //                 text: 'First',
-    //                 isSquare: true,
-    //               ),
-    //               SizedBox(
-    //                 height: 4,
-    //               ),
-    //               Indicator(
-    //                 color: Color(0xfff8b250),
-    //                 text: 'Second',
-    //                 isSquare: true,
-    //               ),
-    //               SizedBox(
-    //                 height: 4,
-    //               ),
-    //               Indicator(
-    //                 color: Color(0xff845bef),
-    //                 text: 'Third',
-    //                 isSquare: true,
-    //               ),
-    //               SizedBox(
-    //                 height: 4,
-    //               ),
-    //               Indicator(
-    //                 color: Color(0xff13d38e),
-    //                 text: 'Fourth',
-    //                 isSquare: true,
-    //               ),
-    //               SizedBox(
-    //                 height: 18,
-    //               ),
-    //             ],
-    //           ),
-    //           const SizedBox(
-    //             width: 28,
-    //           ),
-    //         ],
-    //       ),
-    //     );
   }
 
   // インジケーターの値代入
-  List<PieChartSectionData> showingSections() {
-    return List.generate(2, (i) {
+  List<PieChartSectionData> _buildChild() {
+    double achirve = percents[0]/5;
+    List<PieChartSectionData> graph = [];
+    for (var i = 0; i < 21; i++) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 25.0 : 16.0;
       final radius = isTouched ? 60.0 : 50.0;
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: Colors.red,
-            value: 50,
-            title: '50%',
-            radius: radius,
-            
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: Colors.grey[350],
-            value: 50,
-            title: '',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        default:
-          throw Error();
+      if(i < achirve) {
+        graph.add(
+        PieChartSectionData(
+          color: colors[0],
+          value: 1,
+          title: '',
+          radius: radius,
+          titleStyle: TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
+              color: Colors.white),
+        ),
+      );
+      } else {
+             graph.add(
+        PieChartSectionData(
+          color: colors[1],
+          value: 1,
+          title: '',
+          radius: radius,
+          titleStyle: TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
+              color: Colors.white),
+        ),
+      );
       }
-    });
+    }
+    return graph;
   }
 }
 
