@@ -1,5 +1,6 @@
 // （1） 必要なパッケージのimport宣言
 import 'package:flutter/material.dart';
+import 'glaphPrevious.dart';
 
 class PreviousData extends StatefulWidget {
   @override
@@ -41,7 +42,12 @@ class _PreviousDataState extends State<PreviousData> {
               // : （省略）
             ]
           ),
-        )
+        ),
+        Container(
+          height: 400,
+          width: 400,
+          child:PieChartSample1(),
+        ),
       ],
     );
   }
