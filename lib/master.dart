@@ -36,9 +36,7 @@ class Master extends StatelessWidget {
             children: <Widget>[
               Dropdown(),
               PreviousData(),
-              Builder(builder: (BuildContext context) {
-                return Setting(context);
-              }),
+              Setting(),
             ],
           ),
         ),
