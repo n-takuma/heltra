@@ -191,9 +191,9 @@ class _DropdownState extends State<Dropdown> {
         child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
           Container(
             margin: EdgeInsets.only(right: 30),
-            child: RaisedButton(
-              padding: EdgeInsets.symmetric(horizontal: 40),
-              color: Colors.red,
+            child: ElevatedButton(
+              // padding: EdgeInsets.symmetric(horizontal: 40),
+              // color: Colors.red,
               child: Text(
                 '登録',
                 style: TextStyle(fontSize: 30),

@@ -1,7 +1,9 @@
 
+import 'dart:convert';
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 Widget Setting(BuildContext context) {
   final Size size = MediaQuery.of(context).size;
@@ -29,7 +31,7 @@ Widget Setting(BuildContext context) {
                     ),
                 ),
                 // Padding(padding: EdgeInsets.only(right: 450)),
-                RaisedButton (
+                ElevatedButton (
                   child: Text(
                     'ログアウト',
                     style: TextStyle(
@@ -93,7 +95,7 @@ Widget Setting(BuildContext context) {
                                 // 消費カロリー入力
                               ),
                             ),
-                            RaisedButton(
+                            ElevatedButton(
                               child: Text('送信'),
                               onPressed: () {
                                 // 送信の処理
@@ -110,8 +112,8 @@ Widget Setting(BuildContext context) {
                   padding: EdgeInsets.only(left: 20, top: 200),
                   child: Column(
                     children: [
-                      RaisedButton (
-                        padding: EdgeInsets.all(20),
+                      ElevatedButton (
+                        // padding: EdgeInsets.all(20),
                         child: Text('基本データ編集'),
                         onPressed: () {
                           //基本データ編集を押したときの処理
@@ -125,8 +127,8 @@ Widget Setting(BuildContext context) {
                         },
                       ),
                       Padding(padding: EdgeInsets.only(bottom: 20)),
-                      RaisedButton (
-                        padding: EdgeInsets.all(20),
+                      ElevatedButton (
+                        // padding: EdgeInsets.all(20),
                         child: Text('種目を追加・編集'),
                         onPressed: () {
                           // 種目を追加・編集を押したときの処理
@@ -156,6 +158,7 @@ class BasicData extends StatefulWidget {
   _BasicDataState createState() => _BasicDataState();
 }
 class _BasicDataState extends State<BasicData> {
+
   List<String> user_item = ['ID','名前','誕生日','性別','身長','体重','パスワード'];
   List<String> user = ['Pi','ASDF','2002-1-2','男','100','50','**********'];
 
