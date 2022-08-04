@@ -14,6 +14,7 @@ class PieChart2State extends State {
     // 画面の指定
     return PieChart(
       PieChartData(
+        startDegreeOffset: 270,
           pieTouchData: PieTouchData(
               touchCallback: (FlTouchEvent event, pieTouchResponse) {
             setState(() {
@@ -86,17 +87,18 @@ class PieChart2State extends State {
 
   // インジケーターの値代入
   List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
+    return List.generate(2, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 25.0 : 16.0;
       final radius = isTouched ? 60.0 : 50.0;
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: const Color(0xff0293ee),
-            value: 40,
-            title: '40%',
+            color: Colors.red,
+            value: 50,
+            title: '50%',
             radius: radius,
+            
             titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
@@ -104,31 +106,9 @@ class PieChart2State extends State {
           );
         case 1:
           return PieChartSectionData(
-            color: const Color(0xfff8b250),
-            value: 30,
-            title: '30%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: const Color(0xff845bef),
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize,
-                fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: const Color(0xff13d38e),
-            value: 15,
-            title: '15%',
+            color: Colors.grey[350],
+            value: 50,
+            title: '',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,

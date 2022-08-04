@@ -52,6 +52,13 @@ class _DropdownState extends State<Dropdown> {
                 //   // child: Text('達成度'),
                 child: PieChartSample2(),
               ),
+              Container(
+                padding: EdgeInsets.only(top: 10),
+                child: const Text(
+                  '5000/10000 Kcal',
+                  style: TextStyle(fontSize: 30),
+                ),
+              )
             ],
           ),
           Container(
