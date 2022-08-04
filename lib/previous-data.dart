@@ -13,6 +13,25 @@ class _PreviousDataState extends State<PreviousData> {
   DateTime _endDate = DateTime.now();
   // : （省略）
 
+List<Color> colors = [
+      Colors.red,
+      Colors.orange,
+      Colors.yellow,
+      Colors.green,
+      Colors.blue,
+      Colors.indigo,
+      Colors.purple,
+      ];
+      List<String> events =[
+        '腕立て伏せ',
+        '背筋',
+        '腹筋',
+        'ランニング',
+        'ハイキング',
+        'バイキング',
+        'その他'
+      ];
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -51,7 +70,68 @@ class _PreviousDataState extends State<PreviousData> {
             width: 400,
             child: PieChartSample1(),
           ),
-          
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding:const EdgeInsets.only(top:20),
+                  child: 
+                  Indicator(
+                  color: colors[0],
+                  text: events[0],
+                  isSquare: true,
+                  ),
+                  ),
+                Container(
+                  padding:const EdgeInsets.only(top:20),
+                  child: Indicator(
+                  color: colors[1],
+                  text: events[1],
+                  isSquare: true,
+                  ),),
+                  Container(
+                    padding:const EdgeInsets.only(top:20),
+                  child: Indicator(
+                  color: colors[2],
+                  text: events[2],
+                  isSquare: true,
+                  ),
+                  ),
+                  Container(
+                    padding:const EdgeInsets.only(top:20),
+                  child: Indicator(
+                  color: colors[3],
+                  text: events[3],
+                  isSquare: true,
+                  ),
+                  ),
+                  Container(
+                    padding:const EdgeInsets.only(top:20),
+                  child: Indicator(
+                  color: colors[4],
+                  text: events[4],
+                  isSquare: true,
+                  ),
+                  ),
+                  Container(
+                    padding:const EdgeInsets.only(top:20),
+                  child: Indicator(
+                  color: colors[5],
+                  text: events[5],
+                  isSquare: true,
+                  ),
+                  ),
+                  Container(
+                    padding:const EdgeInsets.only(top:20),
+                  child: Indicator(
+                  color: colors[6],
+                  text: events[6],
+                  isSquare: true,
+                  ),
+                  ),
+            ],
+          )
         ]),
       ],
     );
@@ -74,5 +154,35 @@ class _PreviousDataState extends State<PreviousData> {
         });
     }
   }
-
 }
+//   @override
+//   Widget_buildChild() {
+//     List<Widget> indicators;
+//     return List<Widget>
+//   }
+// }
+
+    // List<>
+    // for(var i = 0; i < colors.length; i++){
+    //   if(events[i] != null) {
+        
+    //     Container(
+    //     padding:const EdgeInsets.only(top:20),
+    //     child: 
+    //     Indicator(
+    //     color: colors[i],
+    //     text: events[i],
+    //     isSquare: true,
+    //     ),
+    //     );
+    //   }
+    // if(events[0] == null) {
+    //   Container(
+    //     padding:const EdgeInsets.only(top:20),
+    //       child: 
+    //       const Indicator(
+    //       color: Colors.grey,
+    //       text: '該当なし',
+    //       isSquare: true,
+    //     ),
+    //   ); 
