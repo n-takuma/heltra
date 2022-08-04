@@ -43,11 +43,16 @@ class _PreviousDataState extends State<PreviousData> {
             ]
           ),
         ),
-        Container(
-          height: 400,
-          width: 400,
-          child:PieChartSample1(),
-        ),
+        Column(
+          children: [
+          Container(
+            padding: EdgeInsets.only(top: 100),
+            height: 400,
+            width: 400,
+            child: PieChartSample1(),
+          ),
+          
+        ]),
       ],
     );
   }

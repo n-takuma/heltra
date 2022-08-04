@@ -14,6 +14,7 @@ class PieChart2State extends State {
     // 画面の指定
     return PieChart(
       PieChartData(
+        startDegreeOffset: 270,
           pieTouchData: PieTouchData(
               touchCallback: (FlTouchEvent event, pieTouchResponse) {
             setState(() {
@@ -79,54 +80,112 @@ class PieChart2State extends State {
 
   // インジケーターの値代入
   List<PieChartSectionData> showingSections() {
-    return List.generate(4, (i) {
+     List<double> values = [
+      10,
+      10,
+      10,
+      10,
+      10,
+      10,
+      40,
+    ];
+    List<Color> colors = [
+      Colors.red,
+      Colors.orange,
+      Colors.yellow,
+      Colors.green,
+      Colors.blue,
+      Colors.indigo,
+      Colors.purple,
+      ];
+    return List.generate(7, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 25.0 : 16.0;
       final radius = isTouched ? 60.0 : 50.0;
       switch (i) {
         case 0:
           return PieChartSectionData(
-            color: const Color(0xff0293ee),
-            value: 40,
-            title: '40%',
+            color: colors[0],
+            value: values[0],
+            title: values[0].toString() + '%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
+                color: Colors.white
+                ),
           );
         case 1:
           return PieChartSectionData(
-            color: const Color(0xfff8b250),
-            value: 30,
-            title: '30%',
+            color: colors[1],
+            value: values[1],
+            title: values[1].toString() + '%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
+                color: Colors.white
+                ),
           );
         case 2:
-          return PieChartSectionData(
-            color: const Color(0xff845bef),
-            value: 15,
-            title: '15%',
+            return PieChartSectionData(
+            color: colors[2],
+            value: values[2],
+            title: values[2].toString() + '%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
+                color: Colors.white
+                ),
           );
         case 3:
           return PieChartSectionData(
-            color: const Color(0xff13d38e),
-            value: 15,
-            title: '15%',
+            color: colors[3],
+            value: values[3],
+            title: values[3].toString() + '%',
             radius: radius,
             titleStyle: TextStyle(
                 fontSize: fontSize,
                 fontWeight: FontWeight.bold,
-                color: const Color(0xffffffff)),
+                color: Colors.white
+                ),
+          );
+        case 4:
+        return PieChartSectionData(
+            color: colors[4],
+            value: values[4],
+            title: values[4].toString() + '%',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+                ),
+          );
+          case 5:
+          return PieChartSectionData(
+            color: colors[5],
+            value: values[5],
+            title: values[5].toString() + '%',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+                ),
+          );
+          case 6:
+          return PieChartSectionData(
+            color: colors[6],
+            value: values[6],
+            title: values[6].toString() + '%',
+            radius: radius,
+            titleStyle: TextStyle(
+                fontSize: fontSize,
+                fontWeight: FontWeight.bold,
+                color: Colors.white
+                ),
           );
         default:
           throw Error();
