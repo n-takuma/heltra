@@ -24,24 +24,27 @@ class _DropdownState extends State<Dropdown> {
   void initState() {
     super.initState();
 
-    _request();
+    // _request();
+    // _my_request();
   }
 
   List _jsonList = [];
   List<String> example = [
     "種目を追加",
+    "背筋",
+    "腹筋",
   ];
 
   Future<void> _request() async {
     // GETを投げる
     var resp = await http.get(Uri.http(
         '163.44.255.164:3000',
-        '/api/training/',
+        '/api/customeTR/',
+        // '/api/training/',
         ));
     if (resp.statusCode != 200) {
       setState(() {
         int statusCode = resp.statusCode;
-        // _content = "Failed to get $statusCode";
       });
       return;
     }
@@ -56,10 +59,47 @@ class _DropdownState extends State<Dropdown> {
     });
   }
 
+  List _my_jsonList = [];
+  String calorie = '100';
+
+  Future<void> _my_request() async {
+    // GETを投げる
+    var resp = await http.get(Uri.http(
+        '163.44.255.164:3000',
+        '/api/users/getUser',
+        ));
+    if (resp.statusCode != 200) {
+      setState(() {
+        int statusCode = resp.statusCode;
+        // _content = "Failed to get $statusCode";
+      });
+      return;
+    }
+    setState(() {
+      var jsonResponse = jsonDecode(resp.body);
+      _my_jsonList = jsonResponse['Details'];
+      calorie = _my_jsonList[0]['Objective'].toString();
+    });
+  }
+
+  String input_todo = "";
+  int input_calorie = 0;
+
+  Future<http.Response> AddTraining() {
+    return http.post(
+      Uri.parse('http://163.44.255.164:3000/api/training/add'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'Name': input_todo,
+        'ConsumptingC': input_calorie,
+      }),
+    );
+  }
+
   Widget build(BuildContext context) {
     DateTime _Date = DateTime.now();
-    String input_todo = "";
-    int input_calorie = 0;
 
     final Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
@@ -89,7 +129,7 @@ class _DropdownState extends State<Dropdown> {
                 ),
                 Container(
                   padding: EdgeInsets.only(top: 10),
-                  child: const Text(
+                  child: Text(
                     '5000/10000 Kcal',
                     style: TextStyle(fontSize: 30),
                   ),
@@ -108,7 +148,7 @@ class _DropdownState extends State<Dropdown> {
               ),
               Container(
                 child: Text(
-                  '600Kcal',
+                  '20Kcal',
                   style: TextStyle(fontSize: 50),
                 ),
               )
@@ -203,6 +243,7 @@ class _DropdownState extends State<Dropdown> {
                           onPressed: () {
                             setState(() {
                               example.add(input_todo);
+                              AddTraining();
                               // calorie.add(input_calorie);
                               // カロリーの追加
                             });

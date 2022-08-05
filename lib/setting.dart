@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:heltra/main.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
@@ -15,6 +16,8 @@ class _SettingState extends State<Setting> {
   List _jsonList = [];
   String name = "";
 
+  List _user = [];
+
   @override
   void initState() {
     super.initState();
@@ -23,25 +26,74 @@ class _SettingState extends State<Setting> {
   }
 
   Future<void> _request() async {
+    String url = 'http://163.44.255.164:3000/api/users/getUser';
+    Map<String, String> headers = {'content-type': 'application/json'};
+    String body = json.encode({
+      'ID': "Pi",
+    });
+
+    http.Response resp = await http.post(Uri.parse(url), headers: headers, body: body);
+
     // GETを投げる
-    var resp = await http.get(Uri.http(
-        '163.44.255.164:3000',
-        '/api/users/getUser',
-        ));
+    // var resp = await http.get(Uri.http(
+    //     '163.44.255.164:3000',
+    //     '/api/users/getUser',
+    //     ));
+    // if (resp.statusCode != 200) {
+    //   setState(() {
+    //     int statusCode = resp.statusCode;
+    //     // _content = "Failed to get $statusCode";
+    //   });
+    //   return;
+    // }
+    print(resp);
+    setState(() {
+      var jsonResponse = jsonDecode(resp.body);
+      print(jsonResponse);
+      _jsonList = jsonResponse['Details'];
+      name = _jsonList[0]["Name"];
+      // title = _jsonList[0]["Name"];
+      _user.insert(0, _jsonList[0]['ID']);
+      _user.insert(1, _jsonList[0]['Name']);
+      _user.insert(2, _jsonList[0]['Birthdate']);
+      _user.insert(3, _jsonList[0]['Sex']);
+      _user.insert(4, _jsonList[0]['Height'].toString());
+      _user.insert(5, _jsonList[0]['Weight'].toString());
+      _user.insert(6, _jsonList[0]['Objective'].toString());
+    });
+  }
+
+  String consumption = "";
+
+  //  put
+  void _put_request() async {
+    String url = 'http://163.44.255.164:3000/api/users/editUser';
+    Map<String, String> headers = {'content-type': 'application/json'};
+    String body = json.encode({
+      'ID': _user[0],
+      'Name': _user[1],
+      'Birthdate': _user[2],
+      'Sex': _user[3],
+      'Height': _user[4],
+      'Weight': _user[5],
+      'Objective': consumption,
+      'Password':"aaaaa",
+      'NPassword': "aaaaa",
+      });
+
+    http.Response resp = await http.put(Uri.parse(url), headers: headers, body: body);
     if (resp.statusCode != 200) {
       setState(() {
         int statusCode = resp.statusCode;
-        // _content = "Failed to get $statusCode";
+        print("Failed to put $statusCode");
       });
       return;
     }
     setState(() {
-      var jsonResponse = jsonDecode(resp.body);
-      _jsonList = jsonResponse['Details'];
-      name = _jsonList[0]["Name"];
-      // title = _jsonList[0]["Name"];
+      print(resp.body);
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +130,11 @@ class _SettingState extends State<Setting> {
                       ),
                     ),
                     onPressed: () {
-                      // ログアウトを押したときの処理
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage(),
+                        )
+                      );
                     },
                   ),
                   // Padding(padding: EdgeInsets.only(right: 30))
@@ -132,12 +188,18 @@ class _SettingState extends State<Setting> {
                                     border: OutlineInputBorder(),
                                   ),
                                   // 消費カロリー入力
+                                  onChanged: (String value) {
+                                    setState(() {
+                                      consumption = value;
+                                    });
+                                  },
                                 ),
                               ),
                               ElevatedButton(
                                 child: Text('送信'),
                                 onPressed: () {
                                   // 送信の処理
+                                  _put_request();
                                 },
                               ),
                             ]
@@ -157,6 +219,7 @@ class _SettingState extends State<Setting> {
                           onPressed: () {
                             //基本データ編集を押したときの処理
                             Navigator.push(
+
                               context,
                               MaterialPageRoute (
                                 builder: (context) => BasicData(),
@@ -201,42 +264,54 @@ class BasicData extends StatefulWidget {
 class _BasicDataState extends State<BasicData> {
 
   List _jsonList = [];
-  List _user = ["", "", "", "", "", ""];
+  List _user = ["", "", "", "", "", "","",""];
   // List parameter = ["Birthdate","ConsumptedC","ID","Name","Sex"];
   // List parameter = ["ID", "Name", "Birthdate", "Sex", "Height", "Weight", "Objective", "Password"]
 
-  List<String> user_item = ['名前','誕生日','性別','身長','体重','目標消費カロリー'];
-  // List user = ['Pi','ASDF','2002-1-2','男',100, 50,'**********'];
+  List<String> user_item = ['ID','名前','誕生日','性別','身長','体重','目標消費カロリー','パスワード'];
+  // List user = ['Pi','ASDF','2002-1-2','男',100, 50, 100, '**********'];
 
   
   @override
   void initState() {
     super.initState();
 
+    print("testtest");
     _request();
   }
 
+  // get 
   Future<void> _request() async {
+    String url = 'http://163.44.255.164:3000/api/users/getUser';
+    Map<String, String> headers = {'content-type': 'application/json'};
+    String body = json.encode({
+      'ID': "Pi",
+    });
+
+    http.Response resp = await http.post(Uri.parse(url), headers: headers, body: body);
     // GETを投げる
-    var resp = await http.get(Uri.http(
-        '163.44.255.164:3000',
-        '/api/users/getUser',
-        ));
-    if (resp.statusCode != 200) {
-      setState(() {
-        int statusCode = resp.statusCode;
-        // _content = "Failed to get $statusCode";
-      });
-      return;
-    }
+    // var resp = await http.get(Uri.http(
+    //     '163.44.255.164:3000',
+    //     '/api/users/getUser',
+    //     ));
+    // if (resp.statusCode != 200) {
+    //   setState(() {
+    //     int statusCode = resp.statusCode;
+    //     // _content = "Failed to get $statusCode";
+    //   });
+    //   return;
+    // }
+    print(resp);
     String sex = '男';
     setState(() {
       var jsonResponse = jsonDecode(resp.body);
+      print(resp.body);
       _jsonList = jsonResponse['Details'];
-      _user.insert(0, _jsonList[0]['Name']);
+      _user.insert(0, _jsonList[0]['ID']);
+      _user.insert(1, _jsonList[0]['Name']);
       DateTime date = DateTime.fromMicrosecondsSinceEpoch(_jsonList[0]['Birthdate']);
       String time = DateFormat("yyyy年MM月dd日").format(date).toString();
-      _user.insert(1, time);
+      _user.insert(2, time);
       if ( _jsonList[0]['Sex'] == 1 ) {
         sex = '男性';
       } else if( _jsonList[0]['Sex'] == 1 ) {
@@ -244,12 +319,41 @@ class _BasicDataState extends State<BasicData> {
       } else {
         sex = 'その他';
       }
-      _user.insert(2, sex);
-      _user.insert(3, _jsonList[0]['Height'].toString() + 'cm');
-      _user.insert(4, _jsonList[0]['Weight'].toString() + 'kg');
-      _user.insert(5, _jsonList[0]['Objective'].toString() + 'kcal');
+      _user.insert(3, sex);
+      _user.insert(4, _jsonList[0]['Height'].toString() + 'cm');
+      _user.insert(5, _jsonList[0]['Weight'].toString() + 'kg');
+      _user.insert(6, _jsonList[0]['Objective'].toString() + 'kcal');
     });
   }
+
+  void _put_request() async {
+  String url = 'http://163.44.255.164:3000/api/users/editUser';
+  Map<String, String> headers = {'content-type': 'application/json'};
+  String body = json.encode({
+    'ID': _user[0],
+    'Name': _user[1],
+    'Birthdate': _user[2],
+    'Sex': _user[3],
+    'Height': _user[4],
+    'Weight': _user[5],
+    'Objective': _user[6],
+    'Password':"●●●●●●●●●●",
+    // 'NPassword': _user[7],
+    'NPassword': "●●●●●●●●●●",
+    });
+
+  http.Response resp = await http.put(Uri.parse(url), headers: headers, body: body);
+  if (resp.statusCode != 200) {
+    setState(() {
+      int statusCode = resp.statusCode;
+      print("Failed to put $statusCode");
+    });
+    return;
+  }
+  setState(() {
+    print(resp.body);
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -261,7 +365,7 @@ class _BasicDataState extends State<BasicData> {
       body: Container(
         width: double.infinity,
         child: ListView.builder(
-          itemCount: 6,
+          itemCount: 8,
           itemBuilder: (context, index) {
             return ListTile(
               leading: Text(user_item[index]),
@@ -287,6 +391,7 @@ class _BasicDataState extends State<BasicData> {
                       ),
                       TextButton(
                         onPressed: () {
+                          _put_request();
                           setState(() {
                             _user[index] = input;
                           });
@@ -317,11 +422,11 @@ class _TodoListPageState extends State<TodoListPage> {
   List _jsonList = [];
   List training_name = [];
   List training_calorie = [];
+  List training_id = [];
 
   @override
   void initState() {
     super.initState();
-
     _request_train();
   }
 
@@ -329,9 +434,11 @@ class _TodoListPageState extends State<TodoListPage> {
     // GETを投げる
     var resp = await http.get(Uri.http(
         '163.44.255.164:3000',
-        '/api/training/',
+        '/api/customeTR/',
+        // '/api/training/',
         ));
     print(resp);
+    print(resp.statusCode);
     if (resp.statusCode != 200) {
       setState(() {
         int statusCode = resp.statusCode;
@@ -340,11 +447,13 @@ class _TodoListPageState extends State<TodoListPage> {
       return;
     }
     setState(() {
+      print(resp.body);
       var jsonResponse = jsonDecode(resp.body);
       _jsonList = jsonResponse['Details'];
       for(var i = 0; i < _jsonList.length; i++ ) {
         training_name.add(_jsonList[i]["Name"]);
         training_calorie.add(_jsonList[i]["ConsumptingC"]);
+        training_id.add(_jsonList[i]["ID"]);
       }
       // title = _jsonList[0]["Name"];
     });
@@ -366,6 +475,21 @@ class _TodoListPageState extends State<TodoListPage> {
         'ConsumptingC': input_calorie,
       }),
     );
+  }
+
+  void _delete_train(int id) async {
+
+    http.Response resp = await http.delete(Uri.parse('http://163.44.255.164:3000/api/training/delete/$id'));
+    if (resp.statusCode != 200) {
+      setState(() {
+        int statusCode = resp.statusCode;
+        // _content = "Failed to delete $statusCode";
+      });
+      return;
+    }
+    setState(() {
+      print(resp.body);
+    });
   }
 
   // Todoリストのデータ
@@ -423,6 +547,7 @@ class _TodoListPageState extends State<TodoListPage> {
                           setState(() {
                             training_name.removeAt(index);
                             training_calorie.removeAt(index);
+                            _delete_train(training_id[index]);
                           });
                           Navigator.pop(context);
                         },
