@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import 'master.dart';
+import 'package:http/http.dart' as http;
+import 'dart:math';
 
 void main() {
   runApp(MyApp());
@@ -36,13 +40,54 @@ class _LoginPageState extends State<LoginPage> {
   // メッセージ表示用
   String infoText = '';
   // 入力したメールアドレス・パスワード
-  String id = '';
+  String id = Random().nextInt(100000).toString();
   String password = '';
   String name = '';
-  String birthdate = '';
+  DateTime birthdate = DateTime.now();
+  String str_sex = '';
   int sex = 0;
   int height = 0;
   int weight = 0;
+
+  void AddRegist() async {
+    if ( str_sex == '男') {
+      sex = 1;
+    } else {
+      sex = 0;
+    }
+  final birthdateUnixTime = birthdate.millisecondsSinceEpoch;
+
+  String url = "http://163.44.255.164:3000/api/register";
+  Map<String, String> headers = {'content-type': 'application/json'};
+  String body = json.encode({
+    "ID": id,
+    "Name": name,
+    "Birthdate": birthdateUnixTime,
+    "Sex": sex,
+    "Height": height,
+    "Weight": weight,
+    "Password": "Raspberry"
+    // "ID": "asd",
+    // "Name": "ASDF",
+    // "Birthdate": 12341234,
+    // "Sex": 1,
+    // "Height": 169,
+    // "Weight": 55,
+    // "Password": "Raspberry"
+  });
+
+  http.Response resp = await http.post( Uri.parse(url), headers: headers, body: body);
+  if (resp.statusCode != 200) {
+    setState(() {
+      int statusCode = resp.statusCode;
+      print("Failed to post $statusCode");
+    });
+    return;
+  }
+  setState(() {
+    print(resp.body);
+  });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +131,8 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(labelText: '誕生日'),
                   onChanged: (String value) {
                     setState(() {
-                      birthdate = value;
+                      birthdate = DateTime(int.parse(value));
+                      // birthdate = value + '00:00:00.000';
                     });
                   },
                 ),
@@ -94,7 +140,7 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: InputDecoration(labelText: '性別'),
                   onChanged: (String value) {
                     setState(() {
-                      sex = int.parse(value);
+                      str_sex = value;
                     });
                   },
                 ),
@@ -125,6 +171,8 @@ class _LoginPageState extends State<LoginPage> {
                   child: ElevatedButton(
                     child: Text('ユーザー登録'),
                     onPressed: () async {
+                      AddRegist();
+                      DateTime.now();
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => Master(),

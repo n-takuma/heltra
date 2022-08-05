@@ -1,8 +1,10 @@
 // （1） 必要なパッケージのimport宣言
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'glaphPrevious.dart';
-
+import 'package:http/http.dart' as http;
 class PreviousData extends StatefulWidget {
   @override
   _PreviousDataState createState() => _PreviousDataState();
@@ -23,7 +25,45 @@ class _PreviousDataState extends State<PreviousData> {
     Colors.indigo,
     Colors.purple,
   ];
-  List<String> events = ['腕立て伏せ', '背筋', '腹筋', 'ランニング', 'ハイキング', 'バイキング', 'その他'];
+  List<String> events = ['腕立て伏せ', '背筋', '腹筋', 'ランニング', 'ハイキング', 'バイキング', 'ハッキング'];
+
+  List _jsonList = [];
+  // List<String> events = [];
+  List<double> each_calorie = [];
+
+  Future<void> _request() async {
+    // GETを投げる
+    final unixTime1 = _startDate.millisecondsSinceEpoch;
+    final unixTime2 = _endDate.millisecondsSinceEpoch;
+    String url = "http://163.44.255.164:3000/api/register";
+  Map<String, String> headers = {'content-type': 'application/json'};
+  String body = json.encode({
+    "StartTime": unixTime1.toString(),
+    "EndTime": unixTime2.toString(),
+  });
+
+  http.Response resp = await http.post( Uri.parse(url), headers: headers, body: body);
+
+    // var resp = await http.get(Uri.http(
+    //     '163.44.255.164:3000',
+    //     '/api/training/',
+    //     ));
+    if (resp.statusCode != 200) {
+      setState(() {
+        int statusCode = resp.statusCode;
+        // _content = "Failed to get $statusCode";
+      });
+      return;
+    }
+    setState(() {
+      var jsonResponse = jsonDecode(resp.body);
+      _jsonList = jsonResponse['Details'];
+      for (var i = 0; i < _jsonList.length; i++ ) {
+        events.add(_jsonList[i]["TName"]);
+        each_calorie.add(_jsonList[i]["ConsumptingC"]);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +120,7 @@ class _PreviousDataState extends State<PreviousData> {
         // （4） 期間の開始と終了の設定
         _startDate = _range.start;
         _endDate = _range.end;
+        _request();
       });
     }
   }
